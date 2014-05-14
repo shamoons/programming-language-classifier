@@ -1,0 +1,26 @@
+{
+  "name": "programming-language-classifier",
+  "version": "0.0.1",
+  "description": "A programming language classifier that uses a bayesian algorithm to determine likelihood of a language being a particular programming language",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shamoons/programming-language-classifier.git"
+  },
+  "keywords": [
+    "bayesian",
+    "classifier",
+    "programming",
+    "language",
+    "syntax"
+  ],
+  "author": "Shamoon Siddiqui",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shamoons/programming-language-classifier/issues"
+  },
+  "homepage": "https://github.com/shamoons/programming-language-classifier"
+}
