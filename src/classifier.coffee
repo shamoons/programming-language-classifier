@@ -30,34 +30,56 @@ class Classifier
     db['languages'][language] += 1
     db['languages_total'] += 1
 
+    @tokens_total    = db['tokens_total']
+    @languages_total = db['languages_total']
+    @tokens          = db['tokens']
+    @language_tokens = db['language_tokens']
+    @languages       = db['languages']
+
     null
 
   classify: (db, tokens, languages = null) ->
     languages = _.keys(db['languages']) or languages
     _classify db, tokens, languages
 
-  _classify = (db, tokens, languages) ->
+
+  _classify = (db, tokens, languages) =>
     return [] if tokens is null
     tokens = Tokenizer.tokenize(tokens) if _.isString tokens
 
-    score = {}
+    scores = {}
 
     # TODO: ADD DEBUG
 
     _.each languages, (language) ->
-      score[language] = tokens_probability(tokens, language) + language_probability(language)
+      scores[language] = _tokens_probability(db, tokens, language) + _language_probability(language)
       #TODO: ADD DEBUG
 
-    # _.sort scores, 
+    sortableScores = []
+    _.forOwn scores, (score, key) ->
+      sortableScores.push [key, score]
 
-    console.log scores
+    sortedScores = sortableScores.sort (a, b) ->
+      return b[1] - a[1]
 
-  tokens_probability = (tokens, language) ->
+    sortableScores
+
+  _tokens_probability = (db, tokens, language) ->
     sum = 0.0
-    _.each tokens, (token) ->
-      sum += token_probability(tokens, token, language)
 
-  token_probability = (tokens, token, language) ->
-    console.log tokens
+    _.each tokens, (token) ->
+      sum += Math.log _token_probability(db, token, language)
+
+    sum
+
+  _token_probability = (db, token, language) =>
+    tokenCount = if db['tokens'][language][token]? then db['tokens'][language][token] else 0
+    if tokenCount is 0
+      1 / db['tokens_total']
+    else
+      parseFloat(db['tokens'][language][token]) / parseFloat(db['language_tokens'][language])
+
+  _language_probability = (language) ->
+    1
 
 module.exports = new Classifier()

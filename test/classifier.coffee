@@ -1,5 +1,7 @@
+_ = require 'lodash'
 samples = require 'linguist-samples'
 should = require 'should'
+Tokenizer = require 'code-tokenizer'
 Classifier = require '../src/classifier'
 
 describe 'Classifier', ->
@@ -9,10 +11,11 @@ describe 'Classifier', ->
     Classifier.train db, 'Objective-C', samples('Objective-C/Foo.h')
     Classifier.train db, 'Objective-C', samples('Objective-C/Foo.m')
 
+
     results = Classifier.classify db, samples('Objective-C/hello.m')
-    # console.log db
-    # console.log results
-    # Classifier.train db, 'Objective-C', samples('Objective-C/Foo.h')
-    # console.log db
-    # console.log a
-    # 1.should.be.eql 1
+    _.first(results)[0].should.eql 'Objective-C'
+
+    tokens = Tokenizer.tokenize(samples('Objective-C/hello.m'))
+    results = Classifier.classify db, tokens
+
+    _.first(results)[0].should.eql 'Objective-C'
