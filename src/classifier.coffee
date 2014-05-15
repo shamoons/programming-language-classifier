@@ -33,9 +33,31 @@ class Classifier
     null
 
   classify: (db, tokens, languages = null) ->
-    languages = db['languages'].keys or languages
-    # _classify db, tokens, languages
+    languages = _.keys(db['languages']) or languages
+    _classify db, tokens, languages
 
-  # _classify:
+  _classify = (db, tokens, languages) ->
+    return [] if tokens is null
+    tokens = Tokenizer.tokenize(tokens) if _.isString tokens
+
+    score = {}
+
+    # TODO: ADD DEBUG
+
+    _.each languages, (language) ->
+      score[language] = tokens_probability(tokens, language) + language_probability(language)
+      #TODO: ADD DEBUG
+
+    # _.sort scores, 
+
+    console.log scores
+
+  tokens_probability = (tokens, language) ->
+    sum = 0.0
+    _.each tokens, (token) ->
+      sum += token_probability(tokens, token, language)
+
+  token_probability = (tokens, token, language) ->
+    console.log tokens
 
 module.exports = new Classifier()
