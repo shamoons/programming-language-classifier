@@ -39,7 +39,7 @@ class Classifier
     null
 
   classify: (db, tokens, languages = null) ->
-    languages = _.keys(db['languages']) or languages
+    languages = languages or _.keys(db['languages'])
     _classify db, tokens, languages
 
 
