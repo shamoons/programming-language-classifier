@@ -2,9 +2,10 @@
   "name": "programming-language-classifier",
   "version": "0.0.1",
   "description": "A programming language classifier that uses a bayesian algorithm to determine likelihood of a language being a particular programming language",
-  "main": "index.js",
+  "main": "lib/classifier.js",
   "scripts": {
-    "test": "test"
+    "test": "mocha --compilers coffee:coffee-script/register -R spec",
+    "prepublish": "coffee --bare --compile --output lib src/*.coffee"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,13 @@
   "bugs": {
     "url": "https://github.com/shamoons/programming-language-classifier/issues"
   },
-  "homepage": "https://github.com/shamoons/programming-language-classifier"
+  "homepage": "https://github.com/shamoons/programming-language-classifier",
+  "dependencies": {
+    "lodash": "~2.4.1",
+    "code-tokenizer": "~1.0.6",
+    "linguist-samples": "~1.0.11"
+  },
+  "devDependencies": {
+    "should": "~3.3.1"
+  }
 }
