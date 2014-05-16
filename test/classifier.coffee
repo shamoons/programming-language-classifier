@@ -37,3 +37,10 @@ describe 'Classifier', ->
   it 'should classify empty data', ->
     results = Classifier.classify Samples.loadSampleFile(), ''
     _.first(results)[1].should.be.below 0.5
+
+  it 'should classify null data', ->
+    results = Classifier.classify Samples.loadSampleFile(), null
+    results.should.be.eql []
+
+  it 'should classify ambiguous languages', ->
+    # TODO: Need to fill this test in
