@@ -7,29 +7,29 @@ Classifier = require '../src/classifier'
 describe 'Classifier', ->
   it 'should classify after training', ->
     db = {}
-    Classifier.train db, 'Ruby', samples('Ruby/foo.rb')
-    Classifier.train db, 'Objective-C', samples('Objective-C/Foo.h')
-    Classifier.train db, 'Objective-C', samples('Objective-C/Foo.m')
+    Classifier.train db, 'Ruby', Samples.readFile('Ruby/foo.rb')
+    Classifier.train db, 'Objective-C', Samples.readFile('Objective-C/Foo.h')
+    Classifier.train db, 'Objective-C', Samples.readFile('Objective-C/Foo.m')
 
 
-    results = Classifier.classify db, samples('Objective-C/hello.m')
+    results = Classifier.classify db, Samples.readFile('Objective-C/hello.m')
     _.first(results)[0].should.eql 'Objective-C'
 
-    tokens = Tokenizer.tokenize(samples('Objective-C/hello.m'))
+    tokens = Tokenizer.tokenize(Samples.readFile('Objective-C/hello.m'))
     results = Classifier.classify db, tokens
 
     _.first(results)[0].should.eql 'Objective-C'
 
   it 'should classify with language restrictions', ->
     db = {}
-    Classifier.train db, 'Ruby', samples('Ruby/foo.rb')
-    Classifier.train db, 'Objective-C', samples('Objective-C/Foo.h')
-    Classifier.train db, 'Objective-C', samples('Objective-C/Foo.m')
+    Classifier.train db, 'Ruby', Samples.readFile('Ruby/foo.rb')
+    Classifier.train db, 'Objective-C', Samples.readFile('Objective-C/Foo.h')
+    Classifier.train db, 'Objective-C', Samples.readFile('Objective-C/Foo.m')
 
-    results = Classifier.classify db, samples('Objective-C/hello.m', ['Objective-C'])
+    results = Classifier.classify db, Samples.readFile('Objective-C/hello.m', ['Objective-C'])
     _.first(results)[0].should.eql 'Objective-C'
 
-    tokens = Tokenizer.tokenize(samples('Objective-C/hello.m'))
+    tokens = Tokenizer.tokenize(Samples.readFile('Objective-C/hello.m'))
     results = Classifier.classify db, tokens, ['Ruby']
 
     _.first(results)[0].should.eql 'Ruby'
