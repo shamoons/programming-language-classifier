@@ -1,5 +1,5 @@
 _ = require 'lodash'
-samples = require 'linguist-samples'
+Samples = require 'linguist-samples'
 should = require 'should'
 Tokenizer = require 'code-tokenizer'
 Classifier = require '../src/classifier'
@@ -33,3 +33,7 @@ describe 'Classifier', ->
     results = Classifier.classify db, tokens, ['Ruby']
 
     _.first(results)[0].should.eql 'Ruby'
+
+  it 'should classify empty data', ->
+    results = Classifier.classify Samples.loadSampleFile(), ''
+    _.first(results)[1].should.be.below 0.5

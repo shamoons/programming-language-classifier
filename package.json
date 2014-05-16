@@ -26,8 +26,8 @@
   "homepage": "https://github.com/shamoons/programming-language-classifier",
   "dependencies": {
     "lodash": "~2.4.1",
-    "code-tokenizer": "~1.0.6",
-    "linguist-samples": "~1.0.11"
+    "linguist-samples": "~1.1.4",
+    "code-tokenizer": "~1.0.6"
   },
   "devDependencies": {
     "should": "~3.3.1"

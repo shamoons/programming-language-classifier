@@ -52,7 +52,7 @@ class Classifier
     # TODO: ADD DEBUG
 
     _.each languages, (language) ->
-      scores[language] = _tokens_probability(db, tokens, language) + _language_probability(language)
+      scores[language] = _tokens_probability(db, tokens, language) + _language_probability(db, language)
       #TODO: ADD DEBUG
 
     sortableScores = []
@@ -79,7 +79,7 @@ class Classifier
     else
       parseFloat(db['tokens'][language][token]) / parseFloat(db['language_tokens'][language])
 
-  _language_probability = (language) ->
-    1
+  _language_probability = (db, language) ->
+    Math.log(parseFloat(db['languages'][language]) / parseFloat(db['languages_total']))
 
 module.exports = new Classifier()
