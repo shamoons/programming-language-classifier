@@ -1,4 +1,5 @@
 _ = require 'lodash'
+path = require 'path'
 Samples = require 'linguist-samples'
 Tokenizer = require 'code-tokenizer'
 
@@ -41,7 +42,7 @@ class Classifier
 
   classify: (db = false, tokens, languages = null) ->
     if db is false
-      db = Samples.loadSampleFile('./data/2014-05-16.json')
+      db = Samples.loadSampleFile(path.join(__dirname, '../data', '2014-05-16.json'))
       languages = languages or _.keys(db['languages'])
       _classify db, tokens, languages
     else

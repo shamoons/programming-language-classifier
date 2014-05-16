@@ -1,6 +1,6 @@
 {
   "name": "programming-language-classifier",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "A programming language classifier that uses a bayesian algorithm to determine likelihood of a language being a particular programming language",
   "main": "lib/classifier.js",
   "scripts": {
