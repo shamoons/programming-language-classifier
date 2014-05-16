@@ -44,3 +44,7 @@ describe 'Classifier', ->
 
   it 'should classify ambiguous languages', ->
     # TODO: Need to fill this test in
+
+  it 'should classify automatically using a default db', ->
+    results = Classifier.classify false, 'such language much friendly'
+    _.first(results)[0].should.eql 'Dogescript'

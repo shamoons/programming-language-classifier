@@ -1,4 +1,5 @@
 _ = require 'lodash'
+Samples = require 'linguist-samples'
 Tokenizer = require 'code-tokenizer'
 
 class Classifier
@@ -38,9 +39,14 @@ class Classifier
 
     null
 
-  classify: (db, tokens, languages = null) ->
-    languages = languages or _.keys(db['languages'])
-    _classify db, tokens, languages
+  classify: (db = false, tokens, languages = null) ->
+    if db is false
+      db = Samples.loadSampleFile('./data/2014-05-16.json')
+      languages = languages or _.keys(db['languages'])
+      _classify db, tokens, languages
+    else
+      languages = languages or _.keys(db['languages'])
+      _classify db, tokens, languages
 
 
   _classify = (db, tokens, languages) =>
